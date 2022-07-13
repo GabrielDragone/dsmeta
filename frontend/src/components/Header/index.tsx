@@ -1,6 +1,6 @@
-import logo from '../../assets/img/logo.svg'
+import logo from '../../assets/img/logo.svg';
 
-import './style.css'
+import './style.css';
 
 function Header() {
     return (
@@ -10,7 +10,7 @@ function Header() {
                 <h1>DSMeta</h1>
                 <p>
                     Desenvolvido por
-                    <a href="https://www.instagram.com/devsuperior.ig">@devsuperior.ig</a>
+                    <a href="https://www.linkedin.com/in/gabriel-alves-gon%C3%A7alves-0000b996/"> Gabriel Alves</a>
                 </p>
             </div>
         </header>

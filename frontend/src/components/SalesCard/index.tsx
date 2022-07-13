@@ -1,25 +1,36 @@
+import { useState } from "react";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import NotificationButton from '../NotificationButton';
-import './styles.css'
+
+import "react-datepicker/dist/react-datepicker.css";
+import './styles.css';
 
 function SalesCard() {
+
+    // Função pra pegar a data de 1 ano atrás:
+    const min = new Date(new Date().setDate(new Date().getDate() - 365));
+    const max = new Date(); // Data de hoje.
+
+    // Declaração de dado composto, onde temos o dado (minDate) e a função que muda o dado (setMinDate) que usaremos para alterar o dado:
+    const [minDate, setMinDate] = useState(min);
+    const [maxDate, setMaxDate] = useState(max);
+
     return (
         <div className="dsmeta-card">
             <h2 className="dsmeta-sales-title">Vendas</h2>
             <div>
                 <div className="dsmeta-form-control-container">
                     <DatePicker
-                        selected={new Date()}
-                        onChange={(date: Date) => { }}
+                        selected={minDate}
+                        onChange={(novaData: Date) => setMinDate(novaData)} // Ao selecionar a novaData no DatePicker, ela irá atualizar o componente
                         className="dsmeta-form-control"
                         dateFormat="dd/MM/yyyy"
                     />
                 </div>
                 <div className="dsmeta-form-control-container">
                     <DatePicker
-                        selected={new Date()}
-                        onChange={(date: Date) => { }}
+                        selected={maxDate}
+                        onChange={(novaData: Date) => setMaxDate(novaData)} // Ao selecionar a novaData no DatePicker, ela irá atualizar o componente
                         className="dsmeta-form-control"
                         dateFormat="dd/MM/yyyy"
                     />
@@ -41,12 +52,12 @@ function SalesCard() {
                     </thead>
                     <tbody>
                         <tr>
-                            <td className="show992">#341</td>
+                            <td className="show992">#123</td>
                             <td className="show576">08/07/2022</td>
-                            <td>Anakin</td>
+                            <td>Din Djarin</td>
                             <td className="show992">15</td>
                             <td className="show992">11</td>
-                            <td>R$ 55300.00</td>
+                            <td>R$ 12345.67</td>
                             <td>
                                 <div className="dsmeta-red-btn-container">
                                     <NotificationButton />
@@ -54,12 +65,12 @@ function SalesCard() {
                             </td>
                         </tr>
                         <tr>
-                            <td className="show992">#341</td>
+                            <td className="show992">#124</td>
                             <td className="show576">08/07/2022</td>
-                            <td>Anakin</td>
+                            <td>Luke Skywalker</td>
                             <td className="show992">15</td>
                             <td className="show992">11</td>
-                            <td>R$ 55300.00</td>
+                            <td>R$ 987654.32</td>
                             <td>
                                 <div className="dsmeta-red-btn-container">
                                     <NotificationButton />
@@ -67,12 +78,12 @@ function SalesCard() {
                             </td>
                         </tr>
                         <tr>
-                            <td className="show992">#341</td>
+                            <td className="show992">#125</td>
                             <td className="show576">08/07/2022</td>
-                            <td>Anakin</td>
+                            <td>Moff Gideon</td>
                             <td className="show992">15</td>
                             <td className="show992">11</td>
-                            <td>R$ 55300.00</td>
+                            <td>R$ 15948.26</td>
                             <td>
                                 <div className="dsmeta-red-btn-container">
                                     <NotificationButton />
