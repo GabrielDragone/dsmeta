@@ -1,6 +1,7 @@
 package com.devsuperior.dsmeta.services;
 
 import com.devsuperior.dsmeta.entities.Sale;
+import com.devsuperior.dsmeta.exceptions.SaleNotFoundException;
 import com.devsuperior.dsmeta.repositories.SaleRepository;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
@@ -50,28 +51,26 @@ public class SmsService {
         StringBuilder msg = new StringBuilder();
 
         // Aqui validamos se o sale está presente, ou seja, se foi encontrado alguma valor:
-        if (sale.isPresent()) {
-            // Exemplo de concatenação com String:
-            String date = sale.get().getDate().getDayOfMonth() + "/" + sale.get().getDate().getMonthValue()
-                    + "/" + sale.get().getDate().getYear();
-            String amount = String.format("%.2f", sale.get().getAmount());
-
-            // Utilizei StringBuilder pois quando concatenamos novas string para o mesmo objeto não são criadas cópias dos
-            // objetos como é realizado no métoco concat da classe String (verificar exemplo de date). Isso contribui para
-            // um melhor desempenho do sistema:
-            msg.append("A venda ")
-                    .append(saleId)
-                    .append(" foi realizada pelo vendedor(a) ")
-                    .append(sale.get().getSellerName())
-                    .append(" na data de ")
-                    .append(date)
-                    .append(" no total de R$")
-                    .append(amount);
-        } else {
-            msg.append("A compra ")
-                    .append(saleId)
-                    .append(" não foi encontrada :( Tente novamente com outra ID!");
+        if (!sale.isPresent()) {
+            throw new SaleNotFoundException(saleId);
         }
+
+        // Exemplo de concatenação com String:
+        String date = sale.get().getDate().getDayOfMonth() + "/" + sale.get().getDate().getMonthValue()
+                + "/" + sale.get().getDate().getYear();
+        String amount = String.format("%.2f", sale.get().getAmount());
+
+        // Utilizei StringBuilder pois quando concatenamos novas string para o mesmo objeto não são criadas cópias dos
+        // objetos como é realizado no métoco concat da classe String (verificar exemplo de date). Isso contribui para
+        // um melhor desempenho do sistema:
+        msg.append("A venda ")
+                .append(saleId)
+                .append(" foi realizada pelo vendedor(a) ")
+                .append(sale.get().getSellerName())
+                .append(" na data de ")
+                .append(date)
+                .append(" no total de R$")
+                .append(amount);
 
         Twilio.init(twilioSid, twilioKey);
 

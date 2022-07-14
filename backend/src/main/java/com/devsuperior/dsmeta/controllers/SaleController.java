@@ -1,12 +1,17 @@
 package com.devsuperior.dsmeta.controllers;
 
 import com.devsuperior.dsmeta.entities.Sale;
+import com.devsuperior.dsmeta.exceptions.SaleNotFoundException;
 import com.devsuperior.dsmeta.services.SaleService;
 import com.devsuperior.dsmeta.services.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
@@ -42,7 +47,12 @@ public class SaleController {
 
     @GetMapping("{id}/notifySms") // Quando inserimos o parametro dessa forma, ele vira um PathVariable e deve ter o mesmo nome do parametro no método abaixo:
     public void notifySms(@PathVariable Long id) {
-        smsService.sendSaleBySms(id);
+        try {
+            smsService.sendSaleBySms(id);
+        } catch (SaleNotFoundException e) {
+            System.out.println(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
     }
 
 }
