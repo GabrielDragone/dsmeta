@@ -21,7 +21,7 @@ function SalesCard() {
             <div>
                 <div className="dsmeta-form-control-container">
                     <DatePicker
-                        selected={minDate}
+                        selected={minDate} // Valor que fica dentro do DatePicker
                         onChange={(novaData: Date) => setMinDate(novaData)} // Ao selecionar a novaData no DatePicker, ela irá atualizar o componente
                         className="dsmeta-form-control"
                         dateFormat="dd/MM/yyyy"
@@ -29,7 +29,7 @@ function SalesCard() {
                 </div>
                 <div className="dsmeta-form-control-container">
                     <DatePicker
-                        selected={maxDate}
+                        selected={maxDate} // Valor que fica dentro do DatePicker
                         onChange={(novaData: Date) => setMaxDate(novaData)} // Ao selecionar a novaData no DatePicker, ela irá atualizar o componente
                         className="dsmeta-form-control"
                         dateFormat="dd/MM/yyyy"
