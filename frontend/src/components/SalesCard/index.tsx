@@ -5,6 +5,8 @@ import NotificationButton from '../NotificationButton';
 import "react-datepicker/dist/react-datepicker.css";
 import './styles.css';
 import axios from "axios";
+import { BASE_URL } from "../../utils/request";
+import { Sale } from "../../models/sale";
 
 function SalesCard() {
 
@@ -16,16 +18,22 @@ function SalesCard() {
     const [minDate, setMinDate] = useState(min);
     const [maxDate, setMaxDate] = useState(max);
 
+    // Buscou através do useEffect os dados do endpoint e armazena dentro de sales:
+    const [sales, setSales] = useState<Sale[]>([]);
+
     // useEffect: Serve para executar algo qnd o componente é montado ou quando o dado alterar.
     // Uma função como primeiro argumento e uma lista no segundo.
     useEffect(() => {
-        console.log("TESTE: ");
+        console.log("TESTE (Faz 2x por estar em ambiente de teste):");
         // Faz a requisição utilizando o axios e usando promise:
-        axios.get("http://localhost:8080/sales")
+        //axios.get(`"http://localhost:8080/sales")
+        // Variável configurada dentro de utils > request.ts
+        axios.get(`${BASE_URL}/sales/byDate?minDate=2021-11-01&maxDate=2021-12-31`) // Usar esse endpoint por enquanto porque está paginado e tem o content.
             .then(response => {
                 console.log(response.data);
-            })
-    }, [])
+                setSales(response.data.content);
+            });
+    }, []);
 
     return (
         <div className="dsmeta-card">
@@ -63,50 +71,31 @@ function SalesCard() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td className="show992">#123</td>
-                            <td className="show576">08/07/2022</td>
-                            <td>Din Djarin</td>
-                            <td className="show992">15</td>
-                            <td className="show992">11</td>
-                            <td>R$ 12345.67</td>
-                            <td>
-                                <div className="dsmeta-red-btn-container">
-                                    <NotificationButton />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="show992">#124</td>
-                            <td className="show576">08/07/2022</td>
-                            <td>Luke Skywalker</td>
-                            <td className="show992">15</td>
-                            <td className="show992">11</td>
-                            <td>R$ 987654.32</td>
-                            <td>
-                                <div className="dsmeta-red-btn-container">
-                                    <NotificationButton />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="show992">#125</td>
-                            <td className="show576">08/07/2022</td>
-                            <td>Moff Gideon</td>
-                            <td className="show992">15</td>
-                            <td className="show992">11</td>
-                            <td>R$ 15948.26</td>
-                            <td>
-                                <div className="dsmeta-red-btn-container">
-                                    <NotificationButton />
-                                </div>
-                            </td>
-                        </tr>
+                        {
+                            sales.map(sale => { // .map percorre a lista e faz uma operação para cada elemento da mesma.
+                                // tr key{sale.id}: Quando fazemos qualquer renderização no React, baseado em uma lista, precisamos definir a chave da mesma em cada elemento.
+                                // .toFixed(2): Formata o numero para ter duas casas decimais.
+                                // .toLocaleDateString(): Formata a data para formato Local.
+                                return (
+                                    <tr key={sale.id}>
+                                        <td className="show992">{sale.id}</td>
+                                        <td className="show576">{new Date(sale.date).toLocaleDateString()}</td>
+                                        <td>{sale.sellerName}</td>
+                                        <td className="show992">{sale.visited}</td>
+                                        <td className="show992">{sale.deals}</td>
+                                        <td>R${sale.amount.toFixed(2)}</td>
+                                        <td>
+                                            <div className="dsmeta-red-btn-container">
+                                                <NotificationButton />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
                     </tbody>
-
                 </table>
             </div>
-
         </div>
     )
 }
