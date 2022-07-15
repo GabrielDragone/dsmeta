@@ -24,16 +24,23 @@ function SalesCard() {
     // useEffect: Serve para executar algo qnd o componente é montado ou quando o dado alterar.
     // Uma função como primeiro argumento e uma lista no segundo.
     useEffect(() => {
-        console.log("TESTE (Faz 2x por estar em ambiente de teste):");
+        
+        // Exemplo de formatação data para envio ao endpoint:
+        console.log(minDate); // Exemplo impressão: Thu Jul 15 2021 18:53:39 GMT-0300 (GMT-03:00), dessa forma, não conseguimos passar a pesquisa para o endpoint.
+        console.log(minDate.toISOString()); // Transforma a data para o padrão: 2021-07-15T22:13:48.084Z, dessa forma, recortaremos um trecho.
+        console.log(minDate.toISOString().slice(0, 10)); // Recorta a string a partir do index 0 até o index 10 e deixa a data da seguinte forma: 2021-07-15.
+
+        const dMin = minDate.toISOString().slice(0, 10);
+        const dMax = maxDate.toISOString().slice(0, 10);
+
         // Faz a requisição utilizando o axios e usando promise:
-        //axios.get(`"http://localhost:8080/sales")
         // Variável configurada dentro de utils > request.ts
-        axios.get(`${BASE_URL}/sales/byDate?minDate=2021-11-01&maxDate=2021-12-31`) // Usar esse endpoint por enquanto porque está paginado e tem o content.
+        axios.get(`${BASE_URL}/sales/byDate?minDate=${dMin}&maxDate=${dMax}`) // Usar esse endpoint por enquanto porque está paginado e tem o content.
             .then(response => {
                 console.log(response.data);
                 setSales(response.data.content);
             });
-    }, []);
+    }, [minDate, maxDate]); // Estamos configurando o useEffect para que toda vez que ouver alteração nesses dados, ele rodar novamente.
 
     return (
         <div className="dsmeta-card">
@@ -75,7 +82,7 @@ function SalesCard() {
                             sales.map(sale => { // .map percorre a lista e faz uma operação para cada elemento da mesma.
                                 // tr key{sale.id}: Quando fazemos qualquer renderização no React, baseado em uma lista, precisamos definir a chave da mesma em cada elemento.
                                 // .toFixed(2): Formata o numero para ter duas casas decimais.
-                                // .toLocaleDateString(): Formata a data para formato Local.
+                                // .toLocaleDateString(): Formata a data para formato Local (dd/mm/yyyy)
                                 return (
                                     <tr key={sale.id}>
                                         <td className="show992">{sale.id}</td>
