@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import NotificationButton from '../NotificationButton';
 
 import "react-datepicker/dist/react-datepicker.css";
 import './styles.css';
+import axios from "axios";
 
 function SalesCard() {
 
@@ -14,6 +15,17 @@ function SalesCard() {
     // Declaração de dado composto, onde temos o dado (minDate) e a função que muda o dado (setMinDate) que usaremos para alterar o dado:
     const [minDate, setMinDate] = useState(min);
     const [maxDate, setMaxDate] = useState(max);
+
+    // useEffect: Serve para executar algo qnd o componente é montado ou quando o dado alterar.
+    // Uma função como primeiro argumento e uma lista no segundo.
+    useEffect(() => {
+        console.log("TESTE: ");
+        // Faz a requisição utilizando o axios e usando promise:
+        axios.get("http://localhost:8080/sales")
+            .then(response => {
+                console.log(response.data);
+            })
+    }, [])
 
     return (
         <div className="dsmeta-card">
