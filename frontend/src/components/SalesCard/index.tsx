@@ -40,7 +40,7 @@ function SalesCard() {
                 console.log(response.data);
                 setSales(response.data.content);
             });
-    }, [minDate, maxDate]); // Estamos configurando o useEffect para que toda vez que ouver alteração nesses dados, ele rodar novamente.
+    }, [minDate, maxDate]); // Estamos configurando o useEffect para que toda vez que houver alteração nesses dados, ele rodar novamente.
 
     return (
         <div className="dsmeta-card">
@@ -93,7 +93,7 @@ function SalesCard() {
                                         <td>R${sale.amount.toFixed(2)}</td>
                                         <td>
                                             <div className="dsmeta-red-btn-container">
-                                                <NotificationButton />
+                                                <NotificationButton saleId={sale.id} />
                                             </div>
                                         </td>
                                     </tr>
