@@ -1,6 +1,7 @@
 // Importa o icone e armazena dentro de icon, para posteriormente inserimos dentro de img src dentro de chaves {icon}:
 // Pasta anterior é ../:
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import icon from '../../assets/img/notification-icon.svg';
 import { BASE_URL } from '../../utils/request';
 
@@ -16,7 +17,7 @@ type Props = {
 function enviarNotificacao(id: number) {
     axios(`${BASE_URL}/sales/${id}/notifySms`)
         .then(respone => {
-            alert("Notificação enviada!");
+            toast.info("SMS enviado com sucesso!");
         });
 }
 
