@@ -10,8 +10,8 @@ import { Sale } from "../../models/sale";
 
 function SalesCard() {
 
-    // Função pra pegar a data de 1 mes atrás:
-    const min = new Date(new Date().setDate(new Date().getDate() - 30));
+    // Função pra pegar a data de 1 ano atrás:
+    const min = new Date(new Date().setDate(new Date().getDate() - 365));
     const max = new Date(); // Data de hoje.
 
     // Declaração de dado composto, onde temos o dado (minDate) e a função que muda o dado (setMinDate) que usaremos para alterar o dado:
