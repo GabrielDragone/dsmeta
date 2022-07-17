@@ -2,6 +2,7 @@
 
 Projeto desenvolvido na Semana Spring React de 07/2022 ministrada pelo professor Nelio Alves e DevSuperior:
 * Nele, criamos uma aplicação que lista a venda de vendedores e as envia via SMS (utilizando API da Twilio).
+* O materiam complementar oferecido nas aulas podem ser acessados através de um dos links: https://github.com/devsuperior/sds-dsmeta ou https://github.com/GabrielDragone/sds-dsmeta
 * O back-end está hospedado na Heroku, enquanto o front-end está na Netlify.
 * A aplicação poderá ser acessada através do link: https://dsmeta-gabrieldragone.netlify.app/
 
