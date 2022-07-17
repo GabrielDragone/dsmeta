@@ -24,14 +24,14 @@ Projeto desenvolvido na Semana Spring React de 07/2022 ministrada pelo professor
     1. Integração Twilio para envio de SMS.
     1. Implantação em nuvem pelo Heroku e configurações de deploy e variavel de ambiente.
 1. Episódio 03:
-  1. Integração de back e front.
-  1. Utilização do Axios para realizar as requisições do front ao back de maneira fácil.
-  1. Utilização de useEffect para executar algo quando algum componente que esteja atrelado tenha seu valor alterado.
-  1. Pesquisa por datas utilizando DatePicker.
-  1. Envio de SMS pelo front.
-  1. Utilização de react-toastfy para mensagem de confirmação de mensagem enviada.
-  1. Implantação em nuvem pelo Netlify e configurações de deploy e variaveis de ambiente.
-  1. Configuração DNS.
+    1. Integração de back e front.
+    1. Utilização do Axios para realizar as requisições do front ao back de maneira fácil.
+    1. Utilização de useEffect para executar algo quando algum componente que esteja atrelado tenha seu valor alterado.
+    1. Pesquisa por datas utilizando DatePicker.
+    1. Envio de SMS pelo front.
+    1. Utilização de react-toastfy para mensagem de confirmação de mensagem enviada.
+    1. Implantação em nuvem pelo Netlify e configurações de deploy e variaveis de ambiente.
+    1. Configuração DNS.
   
 Caso tenham alguma dúvida, podem me procurar no LinkedIn que eu posso encaminhar minhas anotações sobre as aulas.
 
